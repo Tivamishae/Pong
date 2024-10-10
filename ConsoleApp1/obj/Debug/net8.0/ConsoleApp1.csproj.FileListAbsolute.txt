@@ -1,0 +1,15 @@
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1.deps.json
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1.runtimeconfig.json
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1.dll
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1.pdb
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.GeneratedMSBuildEditorConfig.editorconfig
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.AssemblyInfoInputs.cache
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.AssemblyInfo.cs
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.csproj.CoreCompileInputs.cache
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.sourcelink.json
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.dll
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/obj/Debug/net8.0/refint/ConsoleApp1.dll
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.pdb
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.genruntimeconfig.cache
+/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/obj/Debug/net8.0/ref/ConsoleApp1.dll

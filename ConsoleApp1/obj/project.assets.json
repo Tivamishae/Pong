@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/hugoduran/Documents/GitHub/Pong/WebApplication1/WebApplication1.csproj",
-      "projectName": "WebApplication1",
-      "projectPath": "/Users/hugoduran/Documents/GitHub/Pong/WebApplication1/WebApplication1.csproj",
+      "projectUniqueName": "/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/ConsoleApp1.csproj",
+      "projectName": "ConsoleApp1",
+      "projectPath": "/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/ConsoleApp1.csproj",
       "packagesPath": "/Users/hugoduran/.nuget/packages/",
-      "outputPath": "/Users/hugoduran/Documents/GitHub/Pong/WebApplication1/obj/",
+      "outputPath": "/Users/hugoduran/Documents/GitHub/Pong/ConsoleApp1/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/hugoduran/.nuget/NuGet/NuGet.Config"
@@ -60,9 +60,6 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
-          "Microsoft.AspNetCore.App": {
-            "privateAssets": "none"
-          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }

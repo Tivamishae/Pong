@@ -6,8 +6,13 @@ namespace Boll {
     public int bollY;
     public int bollX;
 
-    public int directionY;
-    public int directionX;
+    public int directionY = 1;
+    public int directionX = 1;
+
+    public Boll(int xValue, int yValue) {
+        bollX = xValue;
+        bollY = yValue;
+    }
 
     public void move() {
         bollY += directionY;

@@ -5,6 +5,9 @@ namespace Arena {
     public class Arena
 {
     public void createArena() {
+        int ballX = 15;
+        int ballY = 57;
+        int[,] ball = new int[ballX, ballY];
         int rows = 20; // Number of rows
         int columns = 80; // Number of columns
         char[,] grid = new char[rows, columns];
@@ -22,6 +25,9 @@ namespace Arena {
             for (int col = 0; col < columns; col++)
             if (row == 0 || row == 19) {
                 Console.Write("_");
+            }
+            else if (row == ballX && col == ballY) {
+                Console.Write("O");
             }
             else
             {

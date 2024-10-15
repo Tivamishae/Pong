@@ -1,8 +1,6 @@
 interface IRacketBuilder 
 {
-    void Move();
-
-    void BuildRacket();
+    void MoveRacket();
 
     int currentPostion();
 
@@ -12,25 +10,18 @@ interface IRacketBuilder
 
 class humanRacketBuilder : IRacketBuilder
 {
-    private int position;
+    private int xPosition;
+    private int yPosition;
     private int racketLength;
 
-    public humanRacketBuilder(int startPosition, int length) 
+    public humanRacketBuilder(int xPos, int yPos, int length) 
     {
-        this.position = startPosition;
+        this.xPosition = xPos;
+        this.yPosition = yPos;
         this.racketLength = length;
     }
 
-    public void BuildRacket()
-    {
-        for (int i=0; i < racketLength; i++)
-        {
-            
-
-        }
-    }
-
-    public void Move()
+    public void MoveRacket()
         {
             
         }

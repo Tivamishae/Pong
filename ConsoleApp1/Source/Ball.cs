@@ -1,21 +1,26 @@
 using System;
 
 
-namespace Ball {
-    public class Ball {
-    public int ballY;
-    public int ballX;
 
-    public int directionY;
+    public class Ball {
+    public int ballX;
+    public int ballY;
+
+    public Ball(int x, int y) 
+    {
+        this.ballX = x;
+        this.ballY = y;
+    }
+
     public int directionX;
+    public int directionY;
 
     public void move() {
-        ballY += directionY;
-        ballX += directionX;
+        ballY += directionX;
+        ballX += directionY;
     }
 
     public List<int> getBallCurrentPosition() {
         return [ballX, ballY];
     }
-}
 }

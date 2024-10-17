@@ -2,7 +2,7 @@ using System;
 
 
 
-    public class Ball {
+public class Ball {
     public int ballX;
     public int ballY;
 

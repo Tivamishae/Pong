@@ -8,6 +8,10 @@ class Program
     {
         Arena.Arena myArena = new Arena.Arena();
 
-        myArena.createArena();
+        Ball ball1 = new Ball(10, 10);
+        humanRacketBuilder racket1 = new humanRacketBuilder(10, 1, 3);
+        humanRacketBuilder racket2 = new humanRacketBuilder(10, 79, 3);
+
+        myArena.createArena(ball1, racket1, racket2);
     }
 }

@@ -1,13 +1,10 @@
 using System;
-using Boll;
 
 
 namespace Arena {
     public class Arena
 {
-   Ball ball = new Ball(10, 10);
-    humanRacketBuilder racket1 = new humanRacketBuilder(10, 1, 3);
-    humanRacketBuilder racket2 = new humanRacketBuilder(10, 79, 3);
+    
 
     public bool game = true;
 
@@ -21,7 +18,7 @@ namespace Arena {
         {
             for (int col = 0; col < columns; col++)
             {
-                grid[row, col] = '+'; // Assign a "+" to each coordinate
+                grid[row, col] = ' '; // Assign a "+" to each coordinate
             }
         }
 
@@ -65,22 +62,8 @@ namespace Arena {
 // Separate function to check if the current (row, col) is part of a racket
 public bool IsRacketPosition(int row, int col, humanRacketBuilder racket)
 {
-    return col == racket1.yPos && (row == racket1.racketX - 1 || row == racket.racketX || row == racket.racketX + 1);
+    return col == racket.getYPosition() && (row == racket.getXPosition() - 1 || row == racket.getXPosition() || row == racket.getXPosition() + 1);
 }
-
-// Racket class to represent rackets
-public class Racket
-{
-    public int racketX { get; set; }
-    public int racketY { get; set; }
-
-    public Racket(int x, int y)
-    {
-        racketX = x;
-        racketY = y;
-    }
-}
-
 
 
 }

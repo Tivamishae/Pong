@@ -1,25 +1,47 @@
-interface IRacketBuilder 
+public interface IRacketBuilder 
 {
     void MoveRacket();
 
-    int currentPostion();
+    void setPosition(int x, int y);
 
-    int racketLength();
+    void racketLength(int length);
 
 }
 
-class humanRacketBuilder : IRacketBuilder
+public class humanRacketBuilder : IRacketBuilder
 {
     private int xPosition;
     private int yPosition;
-    private int racketLength;
+    private int lengthInput;
 
     public humanRacketBuilder(int xPos, int yPos, int length) 
     {
         this.xPosition = xPos;
         this.yPosition = yPos;
-        this.racketLength = length;
+        this.lengthInput = length;
     }
+    public void setPosition(int x, int y) 
+    {
+        this.xPosition = x;
+        this.yPosition = y;
+    }
+
+    public void racketLength(int length)
+    {
+        this.lengthInput = length;
+    }
+
+    public int getXPosition()
+    {
+        return xPosition;
+    }
+
+    public int getYPosition()
+    {
+        return yPosition;
+    }
+
+
 
     public void MoveRacket()
         {

@@ -1,16 +1,14 @@
 public class Game 
 {
-public static void createArena(Ball ball, IRacketBuilder racket1, IRacketBuilder racket2)
+public static void createArena(Ball ball, IRacketBuilder racket1, IRacketBuilder racket2, Arena arena)
     {
-        int rows = 20; // Number of rows
-        int columns = 80; // Number of columns
-        char[,] grid = new char[rows, columns];
 
-        for (int row = 0; row < rows; row++)
+
+        for (int row = 0; row < arena.rows; row++)
         {
-            for (int col = 0; col < columns; col++)
+            for (int col = 0; col < arena.columns; col++)
             {
-                grid[row, col] = ' '; 
+                arena.grid[row, col] = ' '; 
             }
         }
 

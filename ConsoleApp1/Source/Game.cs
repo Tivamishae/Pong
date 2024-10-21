@@ -16,6 +16,13 @@ public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder 
         racket1.MoveRacket();
         racket2.MoveRacket();
 
+        
+
+        if (racketCollision(ball, racket1) == true || racketCollision(ball, racket2) == true)
+        {
+            ball.changeDirection();
+        }
+
         ball.move();
 
         createArena(ball, racket1, racket2, arena);
@@ -34,13 +41,13 @@ public static void createArena(Ball ball, IRacketBuilder racket1, IRacketBuilder
             {
                 switch (row)
                 {
-                    // Top and bottom boundaries
+                   
                     case 0:
                     case 19:
                         Console.Write("_");
                         break;
 
-                    // Check if ball's position matches
+                    
                     case int _ when row == ball.ballX && col == ball.ballY:
                         Console.Write("O");
                         break;
@@ -70,6 +77,18 @@ public static bool IsRacketPosition(int row, int col, IRacketBuilder racket)
 {
     return col == racket.getYPosition() && (row == racket.getXPosition() - 1 || row == racket.getXPosition() || row == racket.getXPosition() + 1);
 }
+
+public static bool racketCollision(Ball ball, IRacketBuilder racket)
+{
+    if (ball.getballYPosition() == racket.getYPosition() && (ball.getballXPosition() == racket.getXPosition() || ball.getballXPosition() == racket.getXPosition() - 1 || ball.getballXPosition() == racket.getXPosition() + 1)){
+        return true;
+    }
+    else 
+    { 
+        return false;
+    }
+}
+
 
 
 }

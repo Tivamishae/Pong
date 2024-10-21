@@ -1,22 +1,29 @@
+
+using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 public class Game 
 {
-public static void createArena(Ball ball, IRacketBuilder racket1, IRacketBuilder racket2)
+public bool game = true;
+
+public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder racket2, Arena arena) {
+    while (true) 
     {
-        int rows = 20; 
-        int columns = 80; 
-        int[,] grid = new int[rows, columns];
+        Console.Clear();
+        Console.SetCursorPosition(0,0);
+        createArena(ball, racket1, racket2, arena);
+        racket1.MoveRacket();
+        racket2.MoveRacket();
+        Thread.Sleep(250);
+    }
 
-        for (int row = 0; row < rows; row++)
-        {
-            for (int col = 0; col < columns; col++)
-            {
-                grid[row, col] = ' '; 
-            }
-        }
 
-        for (int row = 0; row < rows; row++)
+}
+
+public static void createArena(Ball ball, IRacketBuilder racket1, IRacketBuilder racket2, Arena arena)
+    {
+        for (int row = 0; row < arena.rows; row++)
         {
-            for (int col = 0; col < columns; col++)
+            for (int col = 0; col < arena.columns; col++)
             {
                 switch (row)
                 {
@@ -37,11 +44,11 @@ public static void createArena(Ball ball, IRacketBuilder racket1, IRacketBuilder
                         break;
 
                     // Left and right borders
-                    case int _ when row > 0 && (col == 0 || col == 79):
+                    case int _ when col == 0 || col == 79:
                         Console.Write("|");
                         break;
 
-                    // Default empty space
+                    // Default empty spaces
                     default:
                         Console.Write(" ");
                         break;
@@ -49,9 +56,10 @@ public static void createArena(Ball ball, IRacketBuilder racket1, IRacketBuilder
             }
             Console.WriteLine(); // Move to the next line after completing a row
         }
+
     }
 
-// Separate function to check if the current (row, col) is part of a racket
+
 public static bool IsRacketPosition(int row, int col, IRacketBuilder racket)
 {
     return col == racket.getYPosition() && (row == racket.getXPosition() - 1 || row == racket.getXPosition() || row == racket.getXPosition() + 1);

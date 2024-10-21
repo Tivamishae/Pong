@@ -8,9 +8,12 @@ class Program
         
 
         Ball ball1 = new Ball(10, 10);
-        humanRacketBuilder racket1 = new humanRacketBuilder(10, 1, 3, true);
-        humanRacketBuilder racket2 = new humanRacketBuilder(10, 78, 3, false);
+        humanRacketBuilder racket1 = new humanRacketBuilder(10, 1, true);
+        humanRacketBuilder racket2 = new humanRacketBuilder(10, 78, false);
+        Arena arenan = new Arena(20, 80);
 
-        Game.createArena(ball1, racket1, racket2);
+
+
+        Game.createGame(ball1, racket1, racket2, arenan);
     }
 }

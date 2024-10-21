@@ -2,7 +2,6 @@ public interface IRacketBuilder
 {
     void MoveRacket();
 
-    void racketLength(int length);
 
     int getXPosition();
 
@@ -15,20 +14,14 @@ public class humanRacketBuilder : IRacketBuilder
     private int xPosition;
     private int yPosition;
     private bool isFirstPlayer;
-    private int lengthInput;
 
-    public humanRacketBuilder(int xPos, int yPos, int length, bool isFirstPlayer) 
+    public humanRacketBuilder(int xPos, int yPos, bool isFirstPlayer) 
     {
         this.xPosition = xPos;
         this.yPosition = yPos;
-        this.lengthInput = length;
         this.isFirstPlayer = isFirstPlayer;
     }
 
-    public void racketLength(int length)
-    {
-        this.lengthInput = length;
-    }
 
     public int getXPosition()
     {
@@ -49,20 +42,20 @@ public class humanRacketBuilder : IRacketBuilder
                 if (isFirstPlayer) {
                     switch (keyInfo.Key) {
                     case ConsoleKey.W:
-                        this.yPosition = yPosition - 1;
+                        this.xPosition = xPosition - 1;
                         break;
                     case ConsoleKey.S:
-                        this.yPosition = yPosition + 1;
+                        this.xPosition = xPosition + 1;
                         break;
                     }
                 }
                 else {
                     switch (keyInfo.Key) {
                     case ConsoleKey.UpArrow:
-                        this.yPosition = yPosition - 1;
+                        this.xPosition = xPosition - 1;
                         break;
                     case ConsoleKey.DownArrow:
-                        this.yPosition = yPosition + 1;
+                        this.xPosition = xPosition + 1;
                         break;
                     }
                 }

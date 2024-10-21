@@ -57,12 +57,14 @@ public class humanRacketBuilder : IRacketBuilder
                     }
                 }
                 else {
+                    switch (keyInfo.Key) {
                     case ConsoleKey.UpArrow:
                         this.yPosition = yPosition - 1;
                         break;
                     case ConsoleKey.DownArrow:
                         this.yPosition = yPosition + 1;
                         break;
+                    }
                 }
             }
         }

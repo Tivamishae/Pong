@@ -2,9 +2,9 @@ public class Game
 {
 public static void createArena(Ball ball, IRacketBuilder racket1, IRacketBuilder racket2)
     {
-        int rows = 20; // Number of rows
-        int columns = 80; // Number of columns
-        char[,] grid = new char[rows, columns];
+        int rows = 20; 
+        int columns = 80; 
+        int[,] grid = new int[rows, columns];
 
         for (int row = 0; row < rows; row++)
         {

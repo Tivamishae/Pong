@@ -11,12 +11,13 @@ public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder 
         Console.CursorVisible = false;
         Console.Clear();
         Console.SetCursorPosition(0,0);
-                racket2.MoveRacket();
 
+        racket2.MoveRacket();
         racket1.MoveRacket();
+
         createArena(ball, racket1, racket2, arena);
         
-        Thread.Sleep(250);
+        Thread.Sleep(100);
     }
 
 

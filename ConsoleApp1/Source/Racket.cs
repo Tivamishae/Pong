@@ -63,3 +63,40 @@ public class humanRacketBuilder : IRacketBuilder
         }
 
 }
+
+public class computerRacketBuilder : IRacketBuilder
+{
+    private int xPosition;
+    private int yPosition;
+
+    private int currentBallY;
+
+    public computerRacketBuilder(int xPos, int yPos, Ball ball) 
+    {
+        this.xPosition = xPos;
+        this.yPosition = yPos;
+        this.currentBallY = ball.getballYPosition();
+    }
+
+
+    public int getXPosition()
+    {
+        return xPosition;
+    }
+
+    public int getYPosition()
+    {
+        return yPosition;
+    }
+
+    public void MoveRacket()
+        {
+            if (xPosition < currentBallY) {
+                this.xPosition = xPosition + 1;
+            }
+            else if (xPosition > currentBallY) {
+                this.xPosition = xPosition - 1;
+            }
+        }
+
+}

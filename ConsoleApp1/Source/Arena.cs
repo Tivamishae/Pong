@@ -9,12 +9,10 @@ namespace Arena
     public int columns; // Number of columns
     
 
-    public Arena(int r, int c)
+    public Arena(int row, int col)
     {
-        this.rows = r;
-        this.columns = c;
-
-        
+        this.rows = row;
+        this.columns = col;
     }
 
 

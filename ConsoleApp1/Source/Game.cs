@@ -1,6 +1,6 @@
 public class Game 
 {
-public static void createArena(Ball ball, humanRacketBuilder racket1, humanRacketBuilder racket2)
+public static void createArena(Ball ball, IRacketBuilder racket1, IRacketBuilder racket2)
     {
         int rows = 20; // Number of rows
         int columns = 80; // Number of columns
@@ -10,7 +10,7 @@ public static void createArena(Ball ball, humanRacketBuilder racket1, humanRacke
         {
             for (int col = 0; col < columns; col++)
             {
-                grid[row, col] = ' '; // Assign a "+" to each coordinate
+                grid[row, col] = ' '; 
             }
         }
 
@@ -52,7 +52,7 @@ public static void createArena(Ball ball, humanRacketBuilder racket1, humanRacke
     }
 
 // Separate function to check if the current (row, col) is part of a racket
-public static bool IsRacketPosition(int row, int col, humanRacketBuilder racket)
+public static bool IsRacketPosition(int row, int col, IRacketBuilder racket)
 {
     return col == racket.getYPosition() && (row == racket.getXPosition() - 1 || row == racket.getXPosition() || row == racket.getXPosition() + 1);
 }

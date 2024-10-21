@@ -2,9 +2,11 @@ public interface IRacketBuilder
 {
     void MoveRacket();
 
-    void setPosition(int x, int y);
-
     void racketLength(int length);
+
+    int getXPosition();
+
+    int getYPosition();
 
 }
 
@@ -19,11 +21,6 @@ public class humanRacketBuilder : IRacketBuilder
         this.xPosition = xPos;
         this.yPosition = yPos;
         this.lengthInput = length;
-    }
-    public void setPosition(int x, int y) 
-    {
-        this.xPosition = x;
-        this.yPosition = y;
     }
 
     public void racketLength(int length)
@@ -40,8 +37,6 @@ public class humanRacketBuilder : IRacketBuilder
     {
         return yPosition;
     }
-
-
 
     public void MoveRacket()
         {

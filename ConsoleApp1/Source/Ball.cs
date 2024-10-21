@@ -16,20 +16,19 @@ public class Ball {
         this.directionY = 1;
     }
 
-    public void changeDirection()
+    public void changeYDirection()
     {
         directionY = directionY*(-1);
         
     }
+    public void changeXDirection()
+    {
+        directionX = directionX*(-1);
+        
+    }
     public void move() { // Vi behöver fixa logik för bollen i X-led (upp och ner). Vi behöver även fixa logik för poäng när ballY == 0 eller 80, alltså att det blir mål
 
-       /*  if (ballY > 0 && ballY < 80) {
-            ballY += directionY;
-        }
-        else {
-            directionY = directionY*(-1);
-            ballY += directionY;
-        } */
+        ballX += directionX;
         ballY += directionY;
     }
     public int getballYPosition()
@@ -42,7 +41,5 @@ public class Ball {
         return ballX;
     }
 
-    public List<int> getBallCurrentPosition() {
-        return [ballX, ballY];
-    }
+
 }

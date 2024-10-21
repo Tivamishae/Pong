@@ -1,7 +1,6 @@
 public interface IRacketBuilder 
 {
-    void MoveRacket();
-
+    void MoveRacket(Ball ball);
 
     int getXPosition();
 
@@ -33,7 +32,7 @@ public class humanRacketBuilder : IRacketBuilder
         return yPosition;
     }
 
-    public void MoveRacket()
+    public void MoveRacket(Ball ball = null)
         {
             if (Console.KeyAvailable)
             {
@@ -89,12 +88,12 @@ public class computerRacketBuilder : IRacketBuilder
         return yPosition;
     }
 
-    public void MoveRacket()
+    public void MoveRacket(Ball ball)
         {
-            if (xPosition < currentBallY) {
+            if (xPosition < ball.getballXPosition()) {
                 this.xPosition = xPosition + 1;
             }
-            else if (xPosition > currentBallY) {
+            else if (xPosition > ball.getballXPosition()) {
                 this.xPosition = xPosition - 1;
             }
         }

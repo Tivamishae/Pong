@@ -8,17 +8,24 @@ public class Ball {
     public int directionX;
     public int directionY;
 
-    public Ball(Arena arena) 
+    public Ball(int x, int y) 
     {
-        this.ballX = arena.columns / 4;
-        this.ballY = arena.rows / 4;
-
+        this.ballX = x;
+        this.ballY = y;
+        this.directionX = 1;
+        this.directionY = 1;
     }
 
 
-    public void move() {
-        ballY += directionX;
-        ballX += directionY;
+    public void move() { // Vi behöver fixa logik för bollen i X-led (upp och ner). Vi behöver även fixa logik för poäng när ballY == 0 eller 80
+
+        if (ballY > 0 && ballY < 80) {
+            ballY += directionY;
+        }
+        else {
+            directionY = directionY*(-1);
+            ballY += directionY;
+        }
     }
     public int getballYPosition()
     {

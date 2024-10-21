@@ -15,6 +15,8 @@ public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder 
         racket2.MoveRacket();
         racket1.MoveRacket();
 
+        ball.move();
+
         createArena(ball, racket1, racket2, arena);
         
         Thread.Sleep(100);

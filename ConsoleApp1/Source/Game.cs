@@ -12,8 +12,9 @@ public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder 
         Console.Clear();
         Console.SetCursorPosition(0,0);
 
-        racket2.MoveRacket();
+
         racket1.MoveRacket();
+        racket2.MoveRacket();
 
         ball.move();
 
@@ -44,23 +45,22 @@ public static void createArena(Ball ball, IRacketBuilder racket1, IRacketBuilder
                         Console.Write("O");
                         break;
 
-                    // Racket positions (delegated to a separate function)
+                    // Skriv en funktion racketCollision() som kollar om ballX = RacketX
                     case int _ when IsRacketPosition(row, col, racket1) || IsRacketPosition(row, col, racket2):
                         Console.Write("I");
                         break;
 
-                    // Left and right borders
+                    
                     case int _ when col == 0 || col == 79:
                         Console.Write("|");
                         break;
 
-                    // Default empty spaces
                     default:
                         Console.Write(" ");
                         break;
                 }
             }
-            Console.WriteLine(); // Move to the next line after completing a row
+            Console.WriteLine(); 
         }
 
     }

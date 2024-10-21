@@ -17,7 +17,7 @@ public class Ball {
     }
 
 
-    public void move() { // Vi behöver fixa logik för bollen i X-led (upp och ner). Vi behöver även fixa logik för poäng när ballY == 0 eller 80
+    public void move() { // Vi behöver fixa logik för bollen i X-led (upp och ner). Vi behöver även fixa logik för poäng när ballY == 0 eller 80, alltså att det blir mål
 
         if (ballY > 0 && ballY < 80) {
             ballY += directionY;

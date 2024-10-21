@@ -8,11 +8,14 @@ public bool game = true;
 public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder racket2, Arena arena) {
     while (true) 
     {
+        Console.CursorVisible = false;
         Console.Clear();
         Console.SetCursorPosition(0,0);
-        createArena(ball, racket1, racket2, arena);
+                racket2.MoveRacket();
+
         racket1.MoveRacket();
-        racket2.MoveRacket();
+        createArena(ball, racket1, racket2, arena);
+        
         Thread.Sleep(250);
     }
 

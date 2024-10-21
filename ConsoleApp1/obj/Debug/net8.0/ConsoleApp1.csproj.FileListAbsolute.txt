@@ -21,3 +21,10 @@ C:\Users\Pette\Documents\GitHub\Pong\ConsoleApp1\obj\Debug\net8.0\ConsoleApp1.so
 C:\Users\Pette\Documents\GitHub\Pong\ConsoleApp1\obj\Debug\net8.0\ConsoleApp1.dll
 C:\Users\Pette\Documents\GitHub\Pong\ConsoleApp1\obj\Debug\net8.0\refint\ConsoleApp1.dll
 C:\Users\Pette\Documents\GitHub\Pong\ConsoleApp1\obj\Debug\net8.0\ConsoleApp1.pdb
+C:\Users\Pette\Documents\GitHub\Pong\ConsoleApp1\bin\Debug\net8.0\ConsoleApp1.exe
+C:\Users\Pette\Documents\GitHub\Pong\ConsoleApp1\bin\Debug\net8.0\ConsoleApp1.deps.json
+C:\Users\Pette\Documents\GitHub\Pong\ConsoleApp1\bin\Debug\net8.0\ConsoleApp1.runtimeconfig.json
+C:\Users\Pette\Documents\GitHub\Pong\ConsoleApp1\bin\Debug\net8.0\ConsoleApp1.dll
+C:\Users\Pette\Documents\GitHub\Pong\ConsoleApp1\bin\Debug\net8.0\ConsoleApp1.pdb
+C:\Users\Pette\Documents\GitHub\Pong\ConsoleApp1\obj\Debug\net8.0\ConsoleApp1.genruntimeconfig.cache
+C:\Users\Pette\Documents\GitHub\Pong\ConsoleApp1\obj\Debug\net8.0\ref\ConsoleApp1.dll

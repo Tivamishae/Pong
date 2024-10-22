@@ -6,12 +6,19 @@ public interface IRacketBuilder
 
     int getYPosition();
 
+    void addPoint();
+
+    int currentPoint();
+
+
 }
 
 public class humanRacketBuilder : IRacketBuilder
 {
     private int xPosition;
     private int yPosition;
+
+    private int Points = 0;
     private bool isFirstPlayer;
 
     public humanRacketBuilder(int xPos, int yPos, bool isFirstPlayer) 
@@ -21,6 +28,14 @@ public class humanRacketBuilder : IRacketBuilder
         this.isFirstPlayer = isFirstPlayer;
     }
 
+    public void addPoint(){
+        this.Points++;
+    }
+
+    public int currentPoint()
+    {
+        return Points;
+    }
 
     public int getXPosition()
     {
@@ -68,6 +83,8 @@ public class computerRacketBuilder : IRacketBuilder
     private int xPosition;
     private int yPosition;
 
+    private int Points = 0;
+
     private int currentBallY;
 
     public computerRacketBuilder(int xPos, int yPos, Ball ball) 
@@ -77,6 +94,15 @@ public class computerRacketBuilder : IRacketBuilder
         this.currentBallY = ball.getballYPosition();
     }
 
+
+    public void addPoint(){
+        this.Points++;
+    }
+
+    public int currentPoint()
+    {
+        return Points;
+    }
 
     public int getXPosition()
     {

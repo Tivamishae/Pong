@@ -12,8 +12,6 @@ public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder 
         Console.SetCursorPosition(0,0);
         Console.Clear();
         
-
-
         racket1.MoveRacket(ball);
         racket2.MoveRacket(ball);
 
@@ -29,6 +27,9 @@ public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder 
 
         ball.move();
 
+        UI.Score(racket1, racket2, ball);
+
+        UI.Scoreboard(racket1, racket2);
         createArena(ball, racket1, racket2, arena);
         
         Thread.Sleep(25);

@@ -16,6 +16,12 @@ public class Ball {
         this.directionY = 1;
     }
 
+    public void resetBall(Ball ball)
+    {
+        this.ballX = 10;
+        this.ballY = 40;
+    }
+
     public void changeYDirection()
     {
         directionY = directionY*(-1);

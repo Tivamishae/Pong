@@ -11,8 +11,12 @@ public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder 
         Console.SetCursorPosition(0,0);
         Console.Clear();
         
+        if (ball.directionY < 0){
         racket1.MoveRacket(ball);
+        }
+        else {
         racket2.MoveRacket(ball);
+        }
 
         if (wallCollision(ball) == true)
         {
@@ -31,7 +35,7 @@ public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder 
         UI.Scoreboard(racket1, racket2);
         createArena(ball, racket1, racket2, arena);
         
-        Thread.Sleep(25);
+        Thread.Sleep(100);
     }
 
 

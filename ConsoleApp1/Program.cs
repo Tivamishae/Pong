@@ -7,7 +7,7 @@ class Program
     {
         
 
-        Ball ball1 = new Ball(15, 15);
+        Ball ball1 = new Ball(10, 40);
         humanRacketBuilder racket1 = new humanRacketBuilder(10, 1, true);
         computerRacketBuilder racket2 = new computerRacketBuilder(10, 78, ball1);
         Arena arenan = new Arena(20, 80);

@@ -9,8 +9,6 @@ public interface IRacketBuilder
     void addPoint();
 
     int currentPoint();
-
-
 }
 
 public class humanRacketBuilder : IRacketBuilder

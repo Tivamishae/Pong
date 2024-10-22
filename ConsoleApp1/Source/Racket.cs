@@ -19,11 +19,27 @@ public class humanRacketBuilder : IRacketBuilder
     private int Points = 0;
     private bool isFirstPlayer;
 
-    public humanRacketBuilder(int xPos, int yPos, bool isFirstPlayer) 
+    private IAbility ability;
+
+    public humanRacketBuilder(int xPos, int yPos, bool isFirstPlayer, IAbility ability) 
     {
         this.xPosition = xPos;
         this.yPosition = yPos;
         this.isFirstPlayer = isFirstPlayer;
+        this.ability = ability;
+    }
+
+    public void UseAbility() {
+        if (Console.KeyAvailable) {
+            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+
+            if (isFirstPlayer && keyInfo.Key == ConsoleKey.F) {
+                ability.Use();
+            }
+            else if (!isFirstPlayer && keyInfo.Key == ConsoleKey.L) {
+                ability.Use();
+            }
+        }
     }
 
     public void addPoint(){

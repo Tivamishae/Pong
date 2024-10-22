@@ -1,6 +1,6 @@
 public interface IRacketBuilder 
 {
-    void MoveRacket(Ball ball);
+    void RacketAction(Ball ball);
 
     int getXPosition();
 
@@ -9,6 +9,10 @@ public interface IRacketBuilder
     void addPoint();
 
     int currentPoint();
+
+    bool CheckIfAbilityActive();
+
+    void UseAbility();
 }
 
 public class humanRacketBuilder : IRacketBuilder
@@ -30,16 +34,12 @@ public class humanRacketBuilder : IRacketBuilder
     }
 
     public void UseAbility() {
-        if (Console.KeyAvailable) {
-            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+        ability.Use();
+        ability.ResetAbility();
+    }
 
-            if (isFirstPlayer && keyInfo.Key == ConsoleKey.F) {
-                ability.Use();
-            }
-            else if (!isFirstPlayer && keyInfo.Key == ConsoleKey.L) {
-                ability.Use();
-            }
-        }
+    public bool CheckIfAbilityActive() {
+        return ability.CheckIfActive();
     }
 
     public void addPoint(){
@@ -61,7 +61,7 @@ public class humanRacketBuilder : IRacketBuilder
         return yPosition;
     }
 
-    public void MoveRacket(Ball ball = null)
+    public void RacketAction(Ball ball = null)
         {
             if (Console.KeyAvailable)
             {
@@ -75,6 +75,10 @@ public class humanRacketBuilder : IRacketBuilder
                     case ConsoleKey.S:
                         this.xPosition = xPosition + 1;
                         break;
+                    case ConsoleKey.F:
+                        ability.ActivateAbility();
+                        break;
+
                     }
                 }
                 else {
@@ -84,6 +88,9 @@ public class humanRacketBuilder : IRacketBuilder
                         break;
                     case ConsoleKey.DownArrow:
                         this.xPosition = xPosition + 1;
+                        break;
+                    case ConsoleKey.L:
+                        ability.ActivateAbility();
                         break;
                     }
                 }
@@ -101,11 +108,21 @@ public class computerRacketBuilder : IRacketBuilder
 
     private int currentBallY;
 
+    private IAbility ability;
+
     public computerRacketBuilder(int xPos, int yPos, Ball ball) 
     {
         this.xPosition = xPos;
         this.yPosition = yPos;
         this.currentBallY = ball.getballYPosition();
+    }
+
+    public bool CheckIfAbilityActive() {
+        return ability.CheckIfActive();
+    }
+
+     public void UseAbility() {
+        ability.Use();
     }
 
 
@@ -128,7 +145,7 @@ public class computerRacketBuilder : IRacketBuilder
         return yPosition;
     }
 
-    public void MoveRacket(Ball ball)
+    public void RacketAction(Ball ball)
         {
             if (xPosition < ball.getballXPosition()) {
                 this.xPosition = xPosition + 1;

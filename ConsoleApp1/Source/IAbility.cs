@@ -1,39 +1,50 @@
 public interface IAbility
 {
-    void Use();
+    public void Use();
 
-    bool CheckIfActive();
+    public bool CheckIfActive();
+
+    public void ResetAbility();
+
+    public void ActivateAbility();
 }
 
 public class Smash(Ball ball) : IAbility
 {
-    bool isActive;
+    bool isActive = false;
     public void Use() {
         ball.directionX = 2;
+    }
+
+    public void ActivateAbility() {
+        isActive = true;
     }
 
     public bool CheckIfActive() {
         return isActive;
     }
+
+        public void ResetAbility() {
+        isActive = false;
+    }
     
 }
 
-public class SwitchDirection(Ball ball) : IAbility {
-        bool isActive;
-    public void Use() {
-        ball.directionY = ball.directionY * -1;
-    }
-        public bool CheckIfActive() {
-        return isActive;
-    }
-}
-
 public class Screw(Ball ball) : IAbility {
-        bool isActive;
+    bool isActive = false;
     public void Use() {
         ball.directionY = 2;
     }
+
+        public void ActivateAbility() {
+        isActive = true;
+    }
+    
         public bool CheckIfActive() {
         return isActive;
+    }
+
+    public void ResetAbility() {
+        isActive = false;
     }
 }

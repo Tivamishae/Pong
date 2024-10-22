@@ -22,14 +22,14 @@ public class Ball {
         this.ballY = 40;
     }
 
-    public void changeYDirection()
+    public void changeYDirection(int dir)
     {
-        directionY = directionY*(-1);
+        directionY = (dir);
         
     }
-    public void changeXDirection()
+    public void changeXDirection(int dir)
     {
-        directionX = directionX*(-1);
+        directionX = directionX*(dir);
         
     }
     public void move() { 

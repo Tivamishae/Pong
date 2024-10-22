@@ -12,21 +12,31 @@ public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder 
         Console.Clear();
         
         if (ball.directionY < 0){
-        racket1.MoveRacket(ball);
+        racket1.RacketAction(ball);
         }
         else {
-        racket2.MoveRacket(ball);
+        racket2.RacketAction(ball);
         }
 
         if (wallCollision(ball) == true)
         {
-            ball.changeXDirection();
+            ball.changeXDirection(-1);
         }
 
-        if (racketCollision(ball, racket1) == true || racketCollision(ball, racket2) == true)
-        {
-            ball.changeYDirection();
+        if (racketCollision(ball, racket1) == true) {
+            ball.changeYDirection(1);
+            if (racket1.CheckIfAbilityActive() == true) {
+                racket1.UseAbility();
+            }
         }
+
+        if (racketCollision(ball, racket2) == true) {
+            ball.changeYDirection(-1);
+            if (racket2.CheckIfAbilityActive() == true) {
+                racket2.UseAbility();
+            }
+        }
+        
 
         ball.move();
 
@@ -37,7 +47,6 @@ public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder 
         
         Thread.Sleep(100);
     }
-
 
 }
 
@@ -99,7 +108,7 @@ public static bool racketCollision(Ball ball, IRacketBuilder racket)
 
 public static bool wallCollision(Ball ball)
 {
-    if (ball.ballX == 0 || ball.ballX == 20)
+    if (ball.ballX < 1 || ball.ballX > 19)
     {
         return true;
     }

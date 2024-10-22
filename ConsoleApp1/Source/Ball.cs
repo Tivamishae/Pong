@@ -32,7 +32,7 @@ public class Ball {
         directionX = directionX*(-1);
         
     }
-    public void move() { // Vi behöver fixa logik för bollen i X-led (upp och ner). Vi behöver även fixa logik för poäng när ballY == 0 eller 80, alltså att det blir mål
+    public void move() { 
 
         ballX += directionX;
         ballY += directionY;

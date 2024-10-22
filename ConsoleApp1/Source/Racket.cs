@@ -10,7 +10,7 @@ public interface IRacketBuilder
 
     int currentPoint();
 
-
+    /* void useAbility(); */
 }
 
 public class humanRacketBuilder : IRacketBuilder

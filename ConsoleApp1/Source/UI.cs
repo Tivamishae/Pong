@@ -2,11 +2,11 @@ public class UI {
 
     public static void Score(IRacketBuilder racket1, IRacketBuilder racket2, Ball ball)
     {
-        if (ball.getballYPosition() > 80){
+        if (ball.getBallXPosition() > 80){
             racket1.addPoint();
             ball.resetBall(ball);
         }
-        else if (ball.getballYPosition() < 0){
+        else if (ball.getBallXPosition() < 0){
             racket2.addPoint();
             ball.resetBall(ball);
         }

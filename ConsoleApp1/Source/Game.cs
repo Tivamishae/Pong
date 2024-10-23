@@ -11,7 +11,7 @@ public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder 
         Console.SetCursorPosition(0,0);
         Console.Clear();
         
-        if (ball.directionY < 0){
+        if (ball.directionX < 0){
         racket1.RacketAction(ball);
         }
         else {
@@ -20,29 +20,32 @@ public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder 
 
         if (wallCollision(ball) == true)
         {
-            ball.changeXDirection(-1);
+            ball.changeYDirection(-1, true);
         }
 
         if (racketCollision(ball, racket1) == true) {
-            ball.changeYDirection(1);
+            ball.changeYDirection(1, false);
+            ball.changeXDirection();
             if (racket1.CheckIfAbilityActive() == true) {
                 racket1.UseAbility();
             }
         }
 
         if (racketCollision(ball, racket2) == true) {
-            ball.changeYDirection(-1);
+            ball.changeYDirection(1, false);
+            ball.changeXDirection();
             if (racket2.CheckIfAbilityActive() == true) {
                 racket2.UseAbility();
             }
+
         }
         
-
+    
         ball.move();
 
         UI.Score(racket1, racket2, ball);
-
         UI.Scoreboard(racket1, racket2);
+
         createArena(ball, racket1, racket2, arena);
         
         Thread.Sleep(100);
@@ -65,7 +68,7 @@ public static void createArena(Ball ball, IRacketBuilder racket1, IRacketBuilder
                         break;
 
                     
-                    case int _ when row == ball.ballX && col == ball.ballY:
+                    case int _ when row == ball.ballY && col == ball.ballX:
                         Console.Write("O");
                         break;
 
@@ -92,12 +95,12 @@ public static void createArena(Ball ball, IRacketBuilder racket1, IRacketBuilder
 
 public static bool IsRacketPosition(int row, int col, IRacketBuilder racket)
 {
-    return col == racket.getYPosition() && (row == racket.getXPosition() - 1 || row == racket.getXPosition() || row == racket.getXPosition() + 1);
+    return col == racket.getXPosition() && (row == racket.getYPosition() - 1 || row == racket.getYPosition() || row == racket.getYPosition() + 1);
 }
 
 public static bool racketCollision(Ball ball, IRacketBuilder racket)
 {
-    if (ball.getballYPosition() == racket.getYPosition() && (ball.getballXPosition() == racket.getXPosition() || ball.getballXPosition() == racket.getXPosition() - 1 || ball.getballXPosition() == racket.getXPosition() + 1)){
+    if (ball.getBallYPosition() == racket.getYPosition() && (ball.getBallXPosition() == racket.getXPosition() || ball.getBallXPosition() == racket.getXPosition() - 1 || ball.getBallXPosition() == racket.getXPosition() + 1)){
         return true;
     }
     else 
@@ -108,7 +111,7 @@ public static bool racketCollision(Ball ball, IRacketBuilder racket)
 
 public static bool wallCollision(Ball ball)
 {
-    if (ball.ballX < 1 || ball.ballX > 19)
+    if (ball.ballY < 1 && ball.directionY < 0 || ball.ballY > 19 && ball.directionY > 0)
     {
         return true;
     }

@@ -36,7 +36,7 @@ public static void createGame(Ball ball, IRacketBuilder racket1, IRacketBuilder 
         UI.Scoreboard(racket1, racket2);
         createArena(ball, racket1, racket2, arena);
         
-        Thread.Sleep(100);
+        Thread.Sleep(25);
     }
 
 
@@ -55,13 +55,12 @@ public static void createArena(Ball ball, IRacketBuilder racket1, IRacketBuilder
                     case 19:
                         Console.Write("_");
                         break;
-
                     
                     case int _ when row == ball.ballX && col == ball.ballY:
                         Console.Write("O");
                         break;
 
-                    // Skriv en funktion racketCollision() som kollar om ballX = RacketX
+                    
                     case int _ when IsRacketPosition(row, col, racket1) || IsRacketPosition(row, col, racket2):
                         Console.Write("I");
                         break;

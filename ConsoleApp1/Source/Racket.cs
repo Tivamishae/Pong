@@ -83,15 +83,16 @@ public class computerRacketBuilder : IRacketBuilder
     private int xPosition;
     private int yPosition;
 
+    IMoveRacket moves;
+
     private int Points = 0;
 
-    private int currentBallY;
 
-    public computerRacketBuilder(int xPos, int yPos, Ball ball) 
+    public computerRacketBuilder(int xPos, int yPos, Ball ball, IMoveRacket move) 
     {
         this.xPosition = xPos;
         this.yPosition = yPos;
-        this.currentBallY = ball.getballYPosition();
+        this.moves = move;
     }
 
 
@@ -115,13 +116,10 @@ public class computerRacketBuilder : IRacketBuilder
     }
 
     public void MoveRacket(Ball ball)
-        {
-            if (xPosition < ball.getballXPosition()) {
-                this.xPosition = xPosition + 1;
-            }
-            else if (xPosition > ball.getballXPosition()) {
-                this.xPosition = xPosition - 1;
-            }
-        }
+    { 
+       this.xPosition = moves.move(xPosition, ball);
+    }
+        
+        
 
 }

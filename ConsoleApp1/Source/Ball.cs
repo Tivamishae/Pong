@@ -8,10 +8,10 @@ public class Ball {
     public int directionX;
     public int directionY;
 
-    public Ball(int x, int y) 
+    public Ball(Arena arena) 
     {
-        this.ballX = x;
-        this.ballY = y;
+        this.ballX = arena.getRows() / 2;
+        this.ballY = arena.getColumns() / 2;
         this.directionX = 1;
         this.directionY = 1;
     }

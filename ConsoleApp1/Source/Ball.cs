@@ -3,7 +3,8 @@ using System.Security.Cryptography.X509Certificates;
 
 
 
-public class Ball {
+public class Ball
+{
     public int ballY;
     public int ballX;
     public int directionY;
@@ -12,7 +13,7 @@ public class Ball {
 
     public int yBounces = 0;
 
-    public Ball(int x, int y) 
+    public Ball(int x, int y)
     {
         ballY = y;
         ballX = x;
@@ -22,10 +23,12 @@ public class Ball {
 
     public void resetBall(bool firstPlayerPoint)
     {
-        if (firstPlayerPoint) {
+        if (firstPlayerPoint)
+        {
             ballX = 76;
         }
-        else {
+        else
+        {
             ballX = 4;
         }
         ballY = 10;
@@ -35,31 +38,38 @@ public class Ball {
 
     public void changeXDirection(int directionChange)
     {
-        if (xBounces % 2 == 0) {
+        if (xBounces % 2 == 0)
+        {
             directionX = -directionChange;
         }
-        else {
+        else
+        {
             directionX = directionChange;
         }
         xBounces += 1;
     }
     public void changeYDirection(int directionChange, bool wallBounce)
     {
-        if (wallBounce == true) {
+        if (wallBounce == true)
+        {
             yBounces += 1;
             directionY = directionY * directionChange;
         }
-        else {
-            if (yBounces % 2 == 0) {
+        else
+        {
+            if (yBounces % 2 == 0)
+            {
                 directionY = directionChange;
             }
-            else {
+            else
+            {
                 directionY = -directionChange;
             }
         }
-        
+
     }
-    public void move() { 
+    public void move()
+    {
 
         ballY += directionY;
         ballX += directionX;

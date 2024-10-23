@@ -1,5 +1,6 @@
 using System.Threading;
-public class UI {
+public class UI
+{
 
     public static void Names(IRacketBuilder racket1, IRacketBuilder racket2)
     {
@@ -29,7 +30,8 @@ public class UI {
         Console.WriteLine();
     }
 
-    public static void AbilityRecharge(IRacketBuilder racket1, IRacketBuilder racket2) {
+    public static void AbilityRecharge(IRacketBuilder racket1, IRacketBuilder racket2)
+    {
         Console.Write(racket1.ReturnAbilityName() + " cooldown " + racket1.CheckAbilityCooldown());
         for (int i = 0; i < 51; i++)
         {

@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 
 
@@ -13,25 +14,32 @@ public class Ball {
 
     public Ball(int x, int y) 
     {
-        this.ballY = y;
-        this.ballX = x;
-        this.directionY = 1;
-        this.directionX = 1;
+        ballY = y;
+        ballX = x;
+        directionY = 1;
+        directionX = 1;
     }
 
-    public void resetBall(Ball ballY)
+    public void resetBall(bool firstPlayerPoint)
     {
-        this.ballY = 10;
-        this.ballX = 40;
-    }
-
-    public void changeXDirection()
-    {
-        if (xBounces % 2 == 0) {
-            directionX = -1;
+        if (firstPlayerPoint) {
+            ballX = 76;
         }
         else {
-            directionX = 1;
+            ballX = 4;
+        }
+        ballY = 10;
+        directionX = 0;
+        directionY = 0;
+    }
+
+    public void changeXDirection(int directionChange)
+    {
+        if (xBounces % 2 == 0) {
+            directionX = -directionChange;
+        }
+        else {
+            directionX = directionChange;
         }
         xBounces += 1;
     }

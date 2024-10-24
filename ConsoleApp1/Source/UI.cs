@@ -1,25 +1,43 @@
-public class UI {
+using System.Threading;
+public class UI
+{
 
-    public static void Score(IRacketBuilder racket1, IRacketBuilder racket2, Ball ball)
+    public static void Names(IRacketBuilder racket1, IRacketBuilder racket2)
     {
-        if (ball.getballYPosition() > 80){
-            racket1.addPoint();
-            ball.resetBall(ball);
+
+        Console.Write(racket1.ReturnName());
+
+        for (int i = 0; i < 64; i++)
+        {
+            Console.Write(" ");
         }
-        else if (ball.getballYPosition() < 0){
-            racket2.addPoint();
-            ball.resetBall(ball);
-        }
+        Console.Write(racket2.ReturnName());
+        Console.WriteLine();
+        Console.WriteLine();
     }
 
     public static void Scoreboard(IRacketBuilder racket1, IRacketBuilder racket2)
     {
-        Console.Write(racket1.currentPoint());
-        for (int i = 0; i < 78; i++)
+
+        Console.Write("Score: " + racket1.currentPoint());
+
+        for (int i = 0; i < 64; i++)
         {
             Console.Write(" ");
         }
-        Console.Write(racket2.currentPoint());
+        Console.Write("Score: " + racket2.currentPoint());
+        Console.WriteLine();
+        Console.WriteLine();
+    }
+
+    public static void AbilityRecharge(IRacketBuilder racket1, IRacketBuilder racket2)
+    {
+        Console.Write(racket1.ReturnAbilityName() + " cooldown " + racket1.CheckAbilityCooldown());
+        for (int i = 0; i < 51; i++)
+        {
+            Console.Write(" ");
+        }
+        Console.Write(racket2.ReturnAbilityName() + " cooldown " + racket2.CheckAbilityCooldown());
         Console.WriteLine();
     }
 

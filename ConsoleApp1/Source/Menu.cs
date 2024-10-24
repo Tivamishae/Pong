@@ -20,7 +20,7 @@ public class StartingMenu : IMenu
 
     public void select()
     {
-        
+
     }
 
 
@@ -40,6 +40,6 @@ public class EndMenu : IMenu
 
     public void select()
     {
-        
+
     }
 }

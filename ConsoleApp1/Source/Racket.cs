@@ -1,8 +1,6 @@
-using System.Threading;
-public interface IRacketBuilder
-
+public interface IRacketBuilder 
 {
-    void RacketAction(Ball ball);
+    void MoveRacket(Ball ball);
 
     int getXPosition();
 
@@ -12,20 +10,7 @@ public interface IRacketBuilder
 
     int currentPoint();
 
-    bool CheckIfAbilityActive();
-
-    void UseAbility();
-
-    int CheckAbilityCooldown();
-
-    string ReturnName();
-
-    string ReturnAbilityName();
-
-    void HandleCooldownReduction();
-
-    void resetRacket();
-
+    /* void useAbility(); */
 }
 
 public class humanRacketBuilder : IRacketBuilder
@@ -36,76 +21,14 @@ public class humanRacketBuilder : IRacketBuilder
     private int Points = 0;
     private bool isFirstPlayer;
 
-    private string name;
-    private int abilityTickCounter;
-
-    private IAbility ability;
-
-    public humanRacketBuilder(int xPos, int yPos, bool isFirstPlayer, IAbility ability)
+    public humanRacketBuilder(int xPos, int yPos, bool isFirstPlayer) 
     {
         this.xPosition = xPos;
         this.yPosition = yPos;
         this.isFirstPlayer = isFirstPlayer;
-        this.ability = ability;
-        if (isFirstPlayer)
-        {
-            this.name = "Player 1";
-        }
-        else
-        {
-            this.name = "Player 2";
-        }
     }
 
-    public void HandleCooldownReduction()
-    {
-        if (ability.CheckAbilityCooldown() > 0)
-        {
-            abilityTickCounter += 1;
-        }
-        else
-        {
-            abilityTickCounter = 0;
-        }
-        if (abilityTickCounter == 10 && ability.CheckAbilityCooldown() > 0)
-        {
-            ability.ReduceAbilityCooldown();
-            abilityTickCounter = 0;
-        }
-    }
-
-    public void resetRacket()
-    {
-        yPosition = 10;
-    }
-
-    public string ReturnAbilityName()
-    {
-        return ability.ReturnAbilityName();
-    }
-
-    public string ReturnName()
-    {
-        return name;
-    }
-
-    public void UseAbility()
-    {
-        ability.Use();
-    }
-
-    public int CheckAbilityCooldown()
-    {
-        return ability.CheckAbilityCooldown();
-    }
-
-    public bool CheckIfAbilityActive()
-    {
-        return ability.CheckIfActive();
-    }
-
-    public void addPoint()
-    {
+    public void addPoint(){
         this.Points++;
     }
 
@@ -124,81 +47,34 @@ public class humanRacketBuilder : IRacketBuilder
         return yPosition;
     }
 
-    public void RacketAction(Ball ball = null)
-    {
-        if (Console.KeyAvailable)
+    public void MoveRacket(Ball ball = null)
         {
-            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
-
-            if (isFirstPlayer)
+            if (Console.KeyAvailable)
             {
-                switch (keyInfo.Key)
-                {
+                ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+
+                if (isFirstPlayer) {
+                    switch (keyInfo.Key) {
                     case ConsoleKey.W:
-                        if (ball.directionX == 0)
-                        {
-                            ball.directionX = 1;
-                            ball.directionY = -1;
-                            ball.xBounces += 1;
-                        }
-                        else
-                        {
-                            this.yPosition = yPosition - 1;
-                        }
+                        this.xPosition = xPosition - 1;
                         break;
                     case ConsoleKey.S:
-                        if (ball.directionX == 0)
-                        {
-                            ball.directionX = 1;
-                            ball.directionY = 1;
-                            ball.xBounces += 1;
-                        }
-                        else
-                        {
-                            this.yPosition = yPosition + 1;
-                        }
+                        this.xPosition = xPosition + 1;
                         break;
-                    case ConsoleKey.F:
-                        ability.ActivateAbility();
-                        break;
-
+                    }
                 }
-            }
-            else
-            {
-                switch (keyInfo.Key)
-                {
+                else {
+                    switch (keyInfo.Key) {
                     case ConsoleKey.UpArrow:
-                        if (ball.directionX == 0)
-                        {
-                            ball.directionX = -1;
-                            ball.directionY = -1;
-                            ball.xBounces += 1;
-                        }
-                        else
-                        {
-                            this.yPosition = yPosition - 1;
-                        }
+                        this.xPosition = xPosition - 1;
                         break;
                     case ConsoleKey.DownArrow:
-                        if (ball.directionX == 0)
-                        {
-                            ball.directionX = -1;
-                            ball.directionY = 1;
-                            ball.xBounces += 1;
-                        }
-                        else
-                        {
-                            this.yPosition = yPosition + 1;
-                        }
+                        this.xPosition = xPosition + 1;
                         break;
-                    case ConsoleKey.L:
-                        ability.ActivateAbility();
-                        break;
+                    }
                 }
             }
         }
-    }
 
 }
 
@@ -207,81 +83,20 @@ public class computerRacketBuilder : IRacketBuilder
     private int xPosition;
     private int yPosition;
 
+    IMoveRacket moves;
+
     private int Points = 0;
 
-    private string name;
 
-    private int abilityTickCounter = 0;
-
-
-    private IAbility ability;
-
-    public computerRacketBuilder(int xPos, int yPos, bool isFirstPlayer, Ball ball, IAbility ability)
+    public computerRacketBuilder(int xPos, int yPos, Ball ball, IMoveRacket move) 
     {
         this.xPosition = xPos;
         this.yPosition = yPos;
-        this.ability = ability;
-
-        if (isFirstPlayer)
-        {
-            name = "Player 1";
-        }
-        else
-        {
-            name = "Player 2";
-        }
-    }
-    public void HandleCooldownReduction()
-    {
-        if (ability.CheckAbilityCooldown() > 0)
-        {
-            abilityTickCounter += 1;
-        }
-        else
-        {
-            abilityTickCounter = 0;
-        }
-        if (abilityTickCounter == 10 && ability.CheckAbilityCooldown() > 0)
-        {
-            ability.ReduceAbilityCooldown();
-            abilityTickCounter = 0;
-        }
-    }
-
-    public void resetRacket()
-    {
-        yPosition = 10;
-    }
-
-    public string ReturnAbilityName()
-    {
-        return ability.ReturnAbilityName();
-    }
-
-    public string ReturnName()
-    {
-        return name;
-    }
-
-    public bool CheckIfAbilityActive()
-    {
-        return ability.CheckIfActive();
-    }
-
-    public void UseAbility()
-    {
-        ability.Use();
-    }
-
-    public int CheckAbilityCooldown()
-    {
-        return ability.CheckAbilityCooldown();
+        this.moves = move;
     }
 
 
-
-    public void addPoint()
-    {
+    public void addPoint(){
         this.Points++;
     }
 
@@ -300,16 +115,11 @@ public class computerRacketBuilder : IRacketBuilder
         return yPosition;
     }
 
-    public void RacketAction(Ball ball)
-    {
-        if (yPosition < ball.getBallYPosition())
-        {
-            this.yPosition = yPosition + 1;
-        }
-        else if (yPosition > ball.getBallYPosition())
-        {
-            this.yPosition = yPosition - 1;
-        }
+    public void MoveRacket(Ball ball)
+    { 
+       this.xPosition = moves.move(xPosition, ball);
     }
+        
+        
 
 }

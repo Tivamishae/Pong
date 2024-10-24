@@ -7,11 +7,11 @@ public class ImpossibleMove : IMoveRacket
 {
     public int move(int xPosition, Ball ball)
     {
-        if (xPosition < ball.getballXPosition())
+        if (xPosition < ball.getBallXPosition())
         {
             return xPosition + 1;
         }
-        else if (xPosition > ball.getballXPosition())
+        else if (xPosition > ball.getBallXPosition())
         {
             return xPosition - 1;
         }
@@ -26,11 +26,11 @@ public class WackyMove : IMoveRacket
 {
     public int move(int xPosition, Ball ball)
     {
-        if (xPosition < ball.getballXPosition())
+        if (xPosition < ball.getBallXPosition())
         {
             return xPosition + 5;
         }
-        else if (xPosition > ball.getballXPosition())
+        else if (xPosition > ball.getBallXPosition())
         {
             return xPosition - 2;
         }
@@ -45,11 +45,11 @@ public class SlowMove : IMoveRacket
 {
     public int move(int xPosition, Ball ball)
     {
-        if (xPosition < ball.getballXPosition() - 1)
+        if (xPosition < ball.getBallXPosition() - 1)
         {
             return xPosition + 1;
         }
-        else if (xPosition > ball.getballXPosition() + 1)
+        else if (xPosition > ball.getBallXPosition() + 1)
         {
             return xPosition - 1;
         }

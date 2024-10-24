@@ -1,50 +1,87 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 
 
-public class Ball {
-    public int ballX;
+public class Ball
+{
     public int ballY;
-    public int directionX;
+    public int ballX;
     public int directionY;
+    public int directionX;
+    public int xBounces = 0;
 
-    public Ball(Arena arena) 
+    public int yBounces = 0;
+
+    public Ball(int x, int y)
     {
-        this.ballX = arena.getRows() / 2;
-        this.ballY = arena.getColumns() / 2;
-        this.directionX = 1;
-        this.directionY = 1;
+        ballY = y;
+        ballX = x;
+        directionY = 1;
+        directionX = 1;
     }
 
-    public void resetBall(Ball ball)
+    public void resetBall(bool firstPlayerPoint)
     {
-        this.ballX = 10;
-        this.ballY = 40;
+        if (firstPlayerPoint)
+        {
+            ballX = 76;
+        }
+        else
+        {
+            ballX = 4;
+        }
+        ballY = 10;
+        directionX = 0;
+        directionY = 0;
     }
 
-    public void changeYDirection()
+    public void changeXDirection(int directionChange)
     {
-        directionY = directionY*(-1);
-        
+        if (xBounces % 2 == 0)
+        {
+            directionX = -directionChange;
+        }
+        else
+        {
+            directionX = directionChange;
+        }
+        xBounces += 1;
     }
-    public void changeXDirection()
+    public void changeYDirection(int directionChange, bool wallBounce)
     {
-        directionX = directionX*(-1);
-        
-    }
-    public void move() { 
+        if (wallBounce == true)
+        {
+            yBounces += 1;
+            directionY = directionY * directionChange;
+        }
+        else
+        {
+            if (yBounces % 2 == 0)
+            {
+                directionY = directionChange;
+            }
+            else
+            {
+                directionY = -directionChange;
+            }
+        }
 
-        ballX += directionX;
+    }
+    public void move()
+    {
+
         ballY += directionY;
+        ballX += directionX;
     }
-    public int getballYPosition()
-    {
-        return ballY;
-    }
-
-    public int getballXPosition()
+    public int getBallXPosition()
     {
         return ballX;
+    }
+
+    public int getBallYPosition()
+    {
+        return ballY;
     }
 
 

@@ -2,9 +2,10 @@
 public class IMenu
 {
 
-    protected static void DrawMenu(string[] menu, int index)
+    protected static void DrawMenu(string text, string[] menu, int index)
     {
         Console.Clear();
+        Console.WriteLine(text);
         for (int i = 0; i < menu.Length; i++)
         {
             if (i == index) 
@@ -17,7 +18,7 @@ public class IMenu
             }
         }
     }
-    protected void Scroll(string[] menu, ref int index)
+    protected void Scroll(string text, string[] menu, ref int index)
     {
         bool selecting = true;
     
@@ -44,7 +45,7 @@ public class IMenu
  
             }
 
-            DrawMenu(menu, index);
+            DrawMenu(text, menu, index);
 
         }
     }
@@ -79,16 +80,17 @@ public class StartingMenu : IMenu
         IAbility playerAbi = new Screw(ball1);
         IAbility playerAbi2 = new Smash(ball1);
 
-        Console.WriteLine("Welcome to Pong!");
+        string startingText = "What kind of game do you want to play?";
 
         string[] startingMenu = {"Player vs. Player", "Player vs. Computer", "Computer vs. Computer"};   
         int index = 0;
 
-        Console.WriteLine("What kind of game do you want to play?");
-        DrawMenu(startingMenu, index);
-        Scroll(startingMenu, ref index);
+        
+        DrawMenu(startingText, startingMenu, index);
+        Scroll(startingText, startingMenu, ref index);
 
         Console.Clear(); 
+        
         if (index == 0) 
         {
             humanRacketBuilder racket1 = new humanRacketBuilder(1, 10, true, playerAbi);
@@ -117,13 +119,13 @@ public class EndMenu : IMenu
 {
     public EndMenu(IRacketBuilder racket)
     {
-        Console.WriteLine($"{racket.ReturnName()} has won the game!");
+        string endText = $"{racket.ReturnName()} has won the game!";
 
         string[] endMenu = {"Play Again", "Exit"};
         int index = 0;
         
-        DrawMenu(endMenu, index);
-        Scroll(endMenu, ref index);
+        DrawMenu(endText, endMenu, index);
+        Scroll(endText, endMenu, ref index);
 
         Console.Clear();
 

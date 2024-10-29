@@ -72,8 +72,13 @@ public class IMenu
 
 public class StartingMenu : IMenu
 {
-    public int MenuReturnIndex()
+    public StartingMenu()
     {
+        Arena arenan = new Arena(20, 80);
+        Ball ball1 = new Ball(40, 10);
+        IAbility playerAbi = new Screw(ball1);
+        IAbility playerAbi2 = new Smash(ball1);
+
         Console.WriteLine("Welcome to Pong!");
 
         string[] startingMenu = {"Player vs. Player", "Player vs. Computer", "Computer vs. Computer"};   
@@ -84,8 +89,25 @@ public class StartingMenu : IMenu
         Scroll(startingMenu, ref index);
 
         Console.Clear(); 
+        if (index == 0) 
+        {
+            humanRacketBuilder racket1 = new humanRacketBuilder(1, 10, true, playerAbi);
+            humanRacketBuilder racket2 = new humanRacketBuilder(78, 10, false, playerAbi2);
+            Game game = new Game(ball1, racket1, racket2, arenan);
+        }
+        else if (index == 1)
+        {
+            humanRacketBuilder racket1 = new humanRacketBuilder(1, 10, true, playerAbi);
+            computerRacketBuilder racket2 = new computerRacketBuilder(78, 10, false, ball1, playerAbi2);
+            Game game = new Game(ball1, racket1, racket2, arenan);
+        }
+        else if (index == 2)
+        {
+            computerRacketBuilder racket1 = new computerRacketBuilder(1, 10, true, ball1, playerAbi);
+            computerRacketBuilder racket2 = new computerRacketBuilder(78, 10, false, ball1, playerAbi2);
+            Game game = new Game(ball1, racket1, racket2, arenan);
+        }
 
-        return index;
     }
 
 
@@ -93,5 +115,26 @@ public class StartingMenu : IMenu
 
 public class EndMenu : IMenu
 {
+    public EndMenu(IRacketBuilder racket)
+    {
+        Console.WriteLine($"{racket.ReturnName()} has won the game!");
+
+        string[] endMenu = {"Play Again", "Exit"};
+        int index = 0;
+        
+        DrawMenu(endMenu, index);
+        Scroll(endMenu, ref index);
+
+        Console.Clear();
+
+        if (index == 0)
+            {
+                StartingMenu menu = new StartingMenu();
+            }
+        else 
+        {
+            Environment.Exit(0);
+        }
+    }
     
 }

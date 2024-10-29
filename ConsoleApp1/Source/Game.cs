@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 public class Game
@@ -15,9 +16,10 @@ public class Game
         this.racket1 = racket1;
         this.racket2 = racket2;
         this.arena = arena;
+        bool game = true;
 
 
-        while (true)
+        while (game)
         {
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 0);
@@ -69,8 +71,24 @@ public class Game
             UI.AbilityRecharge(racket1, racket2);
 
             createArena(ball, racket1, racket2, arena);
+            
+            if (ScoreCount.checkWinner(racket1))
+            {
+                Console.Clear();
+                game = false;
+                EndMenu menu = new EndMenu(racket1);
+            }
+            if (ScoreCount.checkWinner(racket2))
+            {
+                Console.Clear();
+                game = false;
+                EndMenu menu = new EndMenu(racket2);
+            }
+
 
             Thread.Sleep(100);
+
+            
         }
 
     }
@@ -112,8 +130,8 @@ public class Game
                     case int _ when row == ball.ballY && col == ball.ballX:
                         Console.Write("O");
                         break;
+                        
 
-                    // Skriv en funktion racketCollision() som kollar om ballX = RacketX
                     case int _ when IsRacketPosition(row, col, racket1) || IsRacketPosition(row, col, racket2):
                         Console.Write("I");
                         break;

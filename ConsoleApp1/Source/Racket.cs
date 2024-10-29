@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 public interface IRacketBuilder
 
@@ -215,12 +216,14 @@ public class computerRacketBuilder : IRacketBuilder
 
 
     private IAbility ability;
+    public IMoveRacket movement;
 
-    public computerRacketBuilder(int xPos, int yPos, bool isFirstPlayer, Ball ball, IAbility ability)
+    public computerRacketBuilder(int xPos, int yPos, bool isFirstPlayer, Ball ball, IAbility ability, IMoveRacket movement)
     {
         this.xPosition = xPos;
         this.yPosition = yPos;
         this.ability = ability;
+        this.movement = movement;
 
         if (isFirstPlayer)
         {
@@ -302,14 +305,7 @@ public class computerRacketBuilder : IRacketBuilder
 
     public void RacketAction(Ball ball)
     {
-        if (yPosition < ball.getBallYPosition())
-        {
-            this.yPosition = yPosition + 1;
-        }
-        else if (yPosition > ball.getBallYPosition())
-        {
-            this.yPosition = yPosition - 1;
-        }
+        yPosition = movement.move(yPosition, ball);
     }
 
 }

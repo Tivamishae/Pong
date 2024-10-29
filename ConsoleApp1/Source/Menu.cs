@@ -1,4 +1,6 @@
 
+using System.Security.Cryptography.X509Certificates;
+
 public class IMenu
 {
 
@@ -90,7 +92,7 @@ public class StartingMenu : IMenu
         Scroll(startingText, startingMenu, ref index);
 
         Console.Clear(); 
-        
+
         if (index == 0) 
         {
             humanRacketBuilder racket1 = new humanRacketBuilder(1, 10, true, playerAbi);
@@ -99,16 +101,16 @@ public class StartingMenu : IMenu
         }
         else if (index == 1)
         {
-            humanRacketBuilder racket1 = new humanRacketBuilder(1, 10, true, playerAbi);
-            computerRacketBuilder racket2 = new computerRacketBuilder(78, 10, false, ball1, playerAbi2);
-            Game game = new Game(ball1, racket1, racket2, arenan);
+            ComputerMenu menu = new ComputerMenu(ball1, arenan);
         }
         else if (index == 2)
         {
-            computerRacketBuilder racket1 = new computerRacketBuilder(1, 10, true, ball1, playerAbi);
-            computerRacketBuilder racket2 = new computerRacketBuilder(78, 10, false, ball1, playerAbi2);
+            IMoveRacket impossibleMove = new ImpossibleMove();
+            computerRacketBuilder racket1 = new computerRacketBuilder(1, 10, true, ball1, playerAbi2, impossibleMove);
+            computerRacketBuilder racket2 = new computerRacketBuilder(78, 10, false, ball1, playerAbi2, impossibleMove);
             Game game = new Game(ball1, racket1, racket2, arenan);
         }
+        
 
     }
 
@@ -139,4 +141,56 @@ public class EndMenu : IMenu
         }
     }
     
+}
+
+public class ComputerMenu : IMenu
+{
+    public Ball ball1;
+    public Arena arenan;
+
+
+
+    
+    public ComputerMenu(Ball ball, Arena arena)
+    {
+        IAbility playerAbi = new Screw(ball);
+        IAbility playerAbi2 = new Smash(ball);
+
+        IMoveRacket impossibleMove = new ImpossibleMove();
+        IMoveRacket wackyMove = new WackyMove();
+        IMoveRacket slowMove = new SlowMove();
+
+
+        this.ball1 = ball;
+        this.arenan = arena;
+
+        string optionsText = "What kind of movement should the computer racket have?";
+
+        string[] endMenu = {"Impossible", "Wacky", "Slow"};
+        int index = 0;
+        
+        DrawMenu(optionsText, endMenu, index);
+        Scroll(optionsText, endMenu, ref index);
+
+        Console.Clear();
+
+        if (index == 0)
+            {
+                humanRacketBuilder racket1 = new humanRacketBuilder(1, 10, true, playerAbi);
+                computerRacketBuilder racket2 = new computerRacketBuilder(78, 10, false, ball1, playerAbi2, impossibleMove);
+                Game game = new Game(ball1, racket1, racket2, arenan);
+            }
+        else if (index == 1)
+            {
+                humanRacketBuilder racket1 = new humanRacketBuilder(1, 10, true, playerAbi);
+                computerRacketBuilder racket2 = new computerRacketBuilder(78, 10, false, ball1, playerAbi2, wackyMove);
+                Game game = new Game(ball1, racket1, racket2, arenan);
+            }
+        else if (index == 2)
+            {
+                humanRacketBuilder racket1 = new humanRacketBuilder(1, 10, true, playerAbi);
+                computerRacketBuilder racket2 = new computerRacketBuilder(78, 10, false, ball1, playerAbi2, slowMove);
+                Game game = new Game(ball1, racket1, racket2, arenan);
+            }
+    }
 }

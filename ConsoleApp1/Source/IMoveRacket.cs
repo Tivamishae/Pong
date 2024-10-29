@@ -1,61 +1,62 @@
 public interface IMoveRacket
 {
-    int move(int xPosition, Ball ball);
+    int move(int yPostion, Ball ball);
 }
 
 public class ImpossibleMove : IMoveRacket
 {
-    public int move(int xPosition, Ball ball)
+    public int move(int yPosition, Ball ball)
     {
-        if (xPosition < ball.getBallXPosition())
+        if (yPosition < ball.getBallYPosition())
         {
-            return xPosition + 1;
+            return yPosition + 1;
         }
-        else if (xPosition > ball.getBallXPosition())
+        else if (yPosition > ball.getBallYPosition())
         {
-            return xPosition - 1;
+            return yPosition - 1;
         }
         else
         {
-            return xPosition;
+            return yPosition;
         }
     }
 }
 
 public class WackyMove : IMoveRacket
 {
-    public int move(int xPosition, Ball ball)
+    public int move(int yPosition, Ball ball)
     {
-        if (xPosition < ball.getBallXPosition())
+        if (yPosition < ball.getBallYPosition())
         {
-            return xPosition + 5;
+            return yPosition + 5;
         }
-        else if (xPosition > ball.getBallXPosition())
+        else if (yPosition > ball.getBallYPosition())
         {
-            return xPosition - 2;
+            return yPosition - 2;
         }
         else
         {
-            return xPosition;
+            return yPosition;
         }
     }
 }
 
 public class SlowMove : IMoveRacket
 {
-    public int move(int xPosition, Ball ball)
+
+    public int move(int yPosition, Ball ball)
     {
-        if (xPosition < ball.getBallXPosition() - 1)
+        if (yPosition < ball.getBallYPosition() - 1)
         {
-            return xPosition + 1;
+            return yPosition + 1;
         }
-        else if (xPosition > ball.getBallXPosition() + 1)
+        else if (yPosition > ball.getBallYPosition() + 1)
         {
-            return xPosition - 1;
+            return yPosition - 1;
         }
         else
         {
-            return xPosition;
+            return yPosition;
         }
     }
 }

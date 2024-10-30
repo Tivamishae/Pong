@@ -75,10 +75,9 @@ public class IMenu
 
 public class StartingMenu : IMenu
 {
-    public StartingMenu()
+    public StartingMenu(Ball ball1)
     {
         Arena arenan = new Arena(20, 80);
-        Ball ball1 = new Ball(40, 10);
         IAbility playerAbi = new Screw(ball1);
         IAbility playerAbi2 = new Smash(ball1);
 
@@ -119,7 +118,7 @@ public class StartingMenu : IMenu
 
 public class EndMenu : IMenu
 {
-    public EndMenu(IRacketBuilder racket)
+    public EndMenu(IRacketBuilder racket, Arena arena)
     {
         string endText = $"{racket.ReturnName()} has won the game!";
 
@@ -133,7 +132,7 @@ public class EndMenu : IMenu
 
         if (index == 0)
             {
-                StartingMenu menu = new StartingMenu();
+                ColourMenu menu = new ColourMenu(arena);
             }
         else 
         {
@@ -192,5 +191,92 @@ public class ComputerMenu : IMenu
                 computerRacketBuilder racket2 = new computerRacketBuilder(78, 10, false, ball1, playerAbi2, slowMove);
                 Game game = new Game(ball1, racket1, racket2, arenan);
             }
+    }
+}
+
+public class ShapeMenu : IMenu
+{
+   
+    public Arena arenan;
+    public IBallColour colour;
+
+    public ShapeMenu(Arena arena, IBallColour colour)
+    {
+        this.colour = colour;
+        this.arenan = arena;
+        string shapeText = "What kind of shape should the ball have?";
+
+        string[] shapeMenu = {"*", "O", "+"};
+        int index = 0;
+        
+        DrawMenu(shapeText, shapeMenu, index);
+        Scroll(shapeText, shapeMenu, ref index);
+
+        if (index == 0)
+        {
+            Star starColour = new Star(colour);
+            Ball ball1 = new Ball(40, 10, starColour);
+            StartingMenu menu = new StartingMenu(ball1);
+        }
+        else if (index == 1)
+        {
+            Circle circleColour = new Circle(colour);
+            Ball ball1 = new Ball(40, 10, circleColour);
+            StartingMenu menu = new StartingMenu(ball1);
+        }
+        else if (index == 2)
+        {
+            Plus plusColour = new Plus(colour);
+            Ball ball1 = new Ball(40, 10, plusColour);
+            StartingMenu menu = new StartingMenu(ball1);
+        }
+
+        Console.Clear();
+    }
+}
+public class ColourMenu : IMenu
+{
+ 
+    public Arena arena;
+
+    public GreenColour GreenColour = new GreenColour();
+    public RedColour RedColour = new RedColour();
+    public BlueColour BlueColour = new BlueColour();
+
+
+
+    public ColourMenu( Arena arena)
+    {
+
+        this.arena = arena;
+
+
+        string colourText = "What colour should the ball have?";
+
+        string[] colourMenu = {"Red", "Green", "Blue"};
+        int index = 0;
+        
+        DrawMenu(colourText, colourMenu, index);
+        Scroll(colourText, colourMenu, ref index);
+        
+
+        if (index == 0)
+        {
+              ShapeMenu ShapeMenu = new ShapeMenu(arena, RedColour);
+        }
+        else if (index == 1) 
+        {
+              ShapeMenu ShapeMenu = new ShapeMenu(arena, GreenColour);
+
+        }
+        else if (index == 2) {
+              ShapeMenu ShapeMenu = new ShapeMenu(arena, BlueColour);
+
+        }
+        
+        Console.Clear();
+
+
+        
     }
 }

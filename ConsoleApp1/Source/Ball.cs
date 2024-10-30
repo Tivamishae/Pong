@@ -13,12 +13,15 @@ public class Ball
 
     public int yBounces = 0;
 
-    public Ball(int x, int y)
+    public IBallShape ballShape;
+
+    public Ball(int x, int y, IBallShape ballShape)
     {
         ballY = y;
         ballX = x;
         directionY = 1;
         directionX = 1;
+        this.ballShape = ballShape;
     }
 
     public void resetBall(bool firstPlayerPoint)
@@ -83,6 +86,8 @@ public class Ball
     {
         return ballY;
     }
+
+
 
 
 }

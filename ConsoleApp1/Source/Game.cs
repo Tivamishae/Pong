@@ -76,13 +76,13 @@ public class Game
             {
                 Console.Clear();
                 game = false;
-                EndMenu menu = new EndMenu(racket1);
+                EndMenu menu = new EndMenu(racket1, arena);
             }
             if (ScoreCount.checkWinner(racket2))
             {
                 Console.Clear();
                 game = false;
-                EndMenu menu = new EndMenu(racket2);
+                EndMenu menu = new EndMenu(racket2, arena);
             }
 
 
@@ -128,7 +128,9 @@ public class Game
 
 
                     case int _ when row == ball.ballY && col == ball.ballX:
-                        Console.Write("O");
+                        Console.ForegroundColor = ball.ballShape.returnShape().Item1;
+                        Console.Write($"{ball.ballShape.returnShape().Item2}");
+                        Console.ForegroundColor = ConsoleColor.White;
                         break;
                         
 

@@ -25,7 +25,7 @@ public class Menu
     {
         Console.CursorVisible = false;
         Console.Clear();
-        //ChatGPT har skrivit detta:
+        //Startmenyn producerades med hjälp av ett LLM
         Console.WriteLine("**************************************************************");
         Console.WriteLine("*                                                            *");
         Console.WriteLine("*                      WELCOME TO PONG!                      *");
@@ -35,9 +35,9 @@ public class Menu
         Console.WriteLine("*                                                            *");
         Console.WriteLine("*                          Controls:                         *");
         Console.WriteLine("*       - Player 1: Move Up (W) / Down (S)                   *");
-        Console.WriteLine("*       - Player 1: Use ability (L) / Switch Ability (<-)    *");
+        Console.WriteLine("*       - Player 1: Use ability (F) / Switch Ability (D)     *");
         Console.WriteLine("*       - Player 2: Move Up (↑) / Down (↓)                   *");
-        Console.WriteLine("*       - Player 2: Use ability (F) / Switch Ability (D)     *");
+        Console.WriteLine("*       - Player 2: Use ability (L) / Switch Ability (<-)    *");
         Console.WriteLine("*       - Only the recieving player can move his/her racket  *");
         Console.WriteLine("*                                                            *");
         Console.WriteLine("*      Score Points by Getting the Ball Past Your Opponent!  *");

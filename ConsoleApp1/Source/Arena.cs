@@ -136,6 +136,7 @@ class Arena(Game game, ArenaBorder arenaBorders, Menu menu)
         {
             ball.YDirection = ball.YDirection * -1;
         }
+        
         if (ballCoordinate[0].Item1 <= 0)
         {
             WinPoint(Player2, Player1, 1);

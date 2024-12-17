@@ -25,7 +25,6 @@ public class Menu
     {
         Console.CursorVisible = false;
         Console.Clear();
-        //ChatGPT har skrivit detta:
         Console.WriteLine("**************************************************************");
         Console.WriteLine("*                                                            *");
         Console.WriteLine("*                      WELCOME TO PONG!                      *");

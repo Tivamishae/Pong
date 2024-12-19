@@ -35,9 +35,9 @@ public class Menu
         Console.WriteLine("*                                                            *");
         Console.WriteLine("*                          Controls:                         *");
         Console.WriteLine("*       - Player 1: Move Up (W) / Down (S)                   *");
-        Console.WriteLine("*       - Player 1: Use ability (F) / Switch Ability (D)     *");
+        Console.WriteLine("*       - Player 1: Use ability (F) / Ultimate Ability (D)   *");
         Console.WriteLine("*       - Player 2: Move Up (↑) / Down (↓)                   *");
-        Console.WriteLine("*       - Player 2: Use ability (L) / Switch Ability (<-)    *");
+        Console.WriteLine("*       - Player 2: Use ability (L) / Ultimate Ability (<-)  *");
         Console.WriteLine("*       - Only the recieving player can move his/her racket  *");
         Console.WriteLine("*                                                            *");
         Console.WriteLine("*      Score Points by Getting the Ball Past Your Opponent!  *");
@@ -63,15 +63,22 @@ public class Menu
         Player2Name = ChoosePlayerName("Choose the name of player 2.");
         Console.CursorVisible = false;
 
-        Player1 = new HumanPlayer(5, 10, Player1Name, new AbilityInventory(Ball), Player1RacketColor);
-        Player2 = ChooseEnemyType(Player2RacketColor, Player2Name, new AbilityInventory(Ball), Ball);
+        UltimateAbility player1UltimateAbility = ChooseUltimateAbility(Ball, "player 1");
+        UltimateAbility player2UltimateAbility = ChooseUltimateAbility(Ball, "player 2");
+
+        AbstractAbility player1Ability = ChooseAbility(Ball, player1UltimateAbility, "player 1");
+        AbstractAbility player2Ability = ChooseAbility(Ball, player2UltimateAbility, "player 2");
+
+        Player1 = new HumanPlayer(5, 10, Player1Name, player1Ability, Player1RacketColor);
+        Player2 = ChooseEnemyType(Player2RacketColor, Player2Name, player2Ability, Ball);
         if (Player2 is HumanPlayer)
         {
             Player2Movement = new PlayerMovement(Player2.RacketAction, ConsoleKey.UpArrow, ConsoleKey.DownArrow, ConsoleKey.L, ConsoleKey.LeftArrow, Ball);
         }
         else if (Player2 is ComputerPlayer)
         {
-            Player2Movement = new ComputerMovement(Ball, Player2);
+            IDifficulty AIDifficulty = ChooseAIDifficulty();
+            Player2Movement = new ComputerMovement(Ball, Player2, AIDifficulty);
         }
 
         AmountOfRounds = SelectAmountOfRoundsMenu();
@@ -177,16 +184,96 @@ public class Menu
         return name;
     }
 
-    public IPlayer ChooseEnemyType(IColor racketColor, string playerName, AbilityInventory abilityInventory, Ball ball)
+    public UltimateAbility ChooseUltimateAbility(Ball ball, string player)
     {
-        SelectionsEnemyType EnemyTypeSelections = new SelectionsEnemyType(racketColor, playerName, abilityInventory, ball);
+        SelectionsUltimateAbility UltimateAbilitySelections = new SelectionsUltimateAbility(ball);
+        IIterator<(UltimateAbility, string)> UltimateAbilityIterator = UltimateAbilitySelections.CreateIterator();
+        bool ultimateAbilityHasBeenChosen = false;
+
+        while (!ultimateAbilityHasBeenChosen)
+        {
+            Console.Clear();
+            Console.WriteLine("Choose ultimate ability for " + player + " Switch with (↓↑), enter with (Enter)");
+            Console.WriteLine("");
+            foreach ((UltimateAbility, string) UAbility in UltimateAbilitySelections.Selections)
+            {
+                if (UltimateAbilityIterator.Current.Item2 == UAbility.Item2)
+                {
+                    Console.WriteLine(">" + UAbility.Item2 + "<");
+                }
+                else
+                {
+                    Console.WriteLine(UAbility.Item2);
+                }
+            }
+            var key = Console.ReadKey(true);
+
+            if (key.Key == ConsoleKey.DownArrow)
+            {
+                UltimateAbilityIterator.MoveNext(1);
+            }
+            else if (key.Key == ConsoleKey.UpArrow)
+            {
+                UltimateAbilityIterator.MoveNext(-1);
+            }
+            else if (key.Key == ConsoleKey.Enter)
+            {
+                return UltimateAbilityIterator.Current.Item1;
+            }
+        }
+        return UltimateAbilityIterator.Current.Item1;
+    }
+
+    public AbstractAbility ChooseAbility(Ball ball, UltimateAbility ultimateAbility, string player)
+    {
+        SelectionsAbility AbilitySelections = new SelectionsAbility(ball, ultimateAbility);
+        IIterator<(AbstractAbility, string)> AbilityIterator = AbilitySelections.CreateIterator();
+        bool abilityHasBeenChosen = false;
+
+        while (!abilityHasBeenChosen)
+        {
+            Console.Clear();
+            Console.WriteLine("Choose ability for " + player + " Switch with (↓↑), enter with (Enter)");
+            Console.WriteLine("");
+            foreach ((AbstractAbility, string) ability in AbilitySelections.Selections)
+            {
+                if (AbilityIterator.Current.Item2 == ability.Item2)
+                {
+                    Console.WriteLine(">" + ability.Item2 + "<");
+                }
+                else
+                {
+                    Console.WriteLine(ability.Item2);
+                }
+            }
+            var key = Console.ReadKey(true);
+
+            if (key.Key == ConsoleKey.DownArrow)
+            {
+                AbilityIterator.MoveNext(1);
+            }
+            else if (key.Key == ConsoleKey.UpArrow)
+            {
+                AbilityIterator.MoveNext(-1);
+            }
+            else if (key.Key == ConsoleKey.Enter)
+            {
+                return AbilityIterator.Current.Item1;
+            }
+        }
+        return AbilityIterator.Current.Item1;
+    }
+
+    public IPlayer ChooseEnemyType(IColor racketColor, string playerName, AbstractAbility ability, Ball ball)
+    {
+        SelectionsEnemyType EnemyTypeSelections = new SelectionsEnemyType(racketColor, playerName, ability, ball);
         IIterator<(IPlayer, string)> EnemyTypeIterator = EnemyTypeSelections.CreateIterator();
         bool enemyTypeHasBeenChosen = false;
 
         while (!enemyTypeHasBeenChosen)
         {
             Console.Clear();
-            Console.WriteLine("Choose type of player for player 2");
+            Console.WriteLine("Choose type of player for player 2 Switch with (↓↑), enter with (Enter)");
             Console.WriteLine("");
             foreach ((IPlayer, string) enemyType in EnemyTypeSelections.Selections)
             {
@@ -217,6 +304,46 @@ public class Menu
         return EnemyTypeIterator.Current.Item1;
     }
 
+    public IDifficulty ChooseAIDifficulty()
+    {
+        SelectionsAIDifficulty AIDifficultySelections = new SelectionsAIDifficulty();
+        IIterator<(IDifficulty, string)> AIDifficultyIterator = AIDifficultySelections.CreateIterator();
+        bool AIDifficultyHasBeenChosen = false;
+
+        while (!AIDifficultyHasBeenChosen)
+        {
+            Console.Clear();
+            Console.WriteLine("Choose computer difficulty Switch with (↓↑), enter with (Enter)");
+            Console.WriteLine("");
+            foreach ((IDifficulty, string) AIDifficulty in AIDifficultySelections.Selections)
+            {
+                if (AIDifficultyIterator.Current.Item2 == AIDifficulty.Item2)
+                {
+                    Console.WriteLine(">" + AIDifficulty.Item2 + "<");
+                }
+                else
+                {
+                    Console.WriteLine(AIDifficulty.Item2);
+                }
+            }
+            var key = Console.ReadKey(true);
+
+            if (key.Key == ConsoleKey.DownArrow)
+            {
+                AIDifficultyIterator.MoveNext(1);
+            }
+            else if (key.Key == ConsoleKey.UpArrow)
+            {
+                AIDifficultyIterator.MoveNext(-1);
+            }
+            else if (key.Key == ConsoleKey.Enter)
+            {
+                return AIDifficultyIterator.Current.Item1;
+            }
+        }
+        return AIDifficultyIterator.Current.Item1;
+    }
+
     public int SelectAmountOfRoundsMenu()
     {
         SelectionsAmountOfRounds AmountOfRoundsSelections = new SelectionsAmountOfRounds();
@@ -226,7 +353,7 @@ public class Menu
         while (!amountOfRoundsHasBeenChosen)
         {
             Console.Clear();
-            Console.WriteLine("How many wins do you want to play for?");
+            Console.WriteLine("How many wins do you want to play for? Switch with (↓↑), enter with (Enter)");
             Console.WriteLine("");
             foreach ((int, string) choice in AmountOfRoundsSelections.Selections)
             {

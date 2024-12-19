@@ -6,22 +6,65 @@ public interface IMovement
     void Movement();
 }
 
+/// <summary>
+/// Strategy pattern
+/// Vi använder oss av olika svårighetsgrader som injekteras i vår ComputerPlayer. Detta tillåts eftersom vi injekterar IMovement.
+/// Vi använder det eftersom det låter oss dynamiskt ändra svårighetsgraden efter compiletime.
+/// </summary>
+
+public interface IDifficulty
+{
+    int GetServeChance();
+    int GetMoveChance();
+    int GetAbilityChance();
+
+    int GetUltimateAbilityChance();
+}
+
+public class EasyDifficulty : IDifficulty
+{
+    public int GetServeChance() => 30;
+    public int GetMoveChance() => 10;
+    public int GetAbilityChance() => 50;
+
+    public int GetUltimateAbilityChance() => 15;
+}
+
+public class MediumDifficulty : IDifficulty
+{
+    public int GetServeChance() => 15;
+    public int GetMoveChance() => 25;
+    public int GetAbilityChance() => 25;
+
+    public int GetUltimateAbilityChance() => 30;
+}
+
+public class HardDifficulty : IDifficulty
+{
+    public int GetServeChance() => 1;
+    public int GetMoveChance() => 45;
+    public int GetAbilityChance() => 10;
+    public int GetUltimateAbilityChance() => 50;
+}
+
 public class ComputerMovement : IMovement
 {
     private Ball _ball;
     private IPlayer _computer;
     private Random _random = new Random();
+    private IDifficulty _difficulty;
+    private DateTime _lastUltimateAbilityCheck;
 
-    private int ServeRandomChance = 1;
-    private int ServeAlternativeChance = 25;
-    private int RacketMoveChance = 2;
-    private int AbilityActivateChance = 1;
-    private int AbilityRandomRange = 150;
+    private int abilityCooldownTracker = 0;
+    private const int abilityActivationThreshold = 100;
 
-    public ComputerMovement(Ball ball, IPlayer computer)
+    private int UltimateAbilityInternalCooldown = 1;
+
+    public ComputerMovement(Ball ball, IPlayer computer, IDifficulty difficulty)
     {
         _ball = ball;
         _computer = computer;
+        _difficulty = difficulty;
     }
 
     public void Movement()
@@ -36,17 +79,24 @@ public class ComputerMovement : IMovement
         }
 
         TryActivateAbility();
+
+        if ((DateTime.Now - _lastUltimateAbilityCheck).TotalSeconds >= UltimateAbilityInternalCooldown)
+        {
+            TryActivateUltimateAbility();
+            _lastUltimateAbilityCheck = DateTime.Now;
+            UltimateAbilityInternalCooldown = 1;
+        }
     }
 
     private void HandleServe()
     {
         int serveChance = _random.Next(1, 46);
 
-        if (serveChance == ServeRandomChance)
+        if (serveChance <= _difficulty.GetServeChance())
         {
             _ball.ServeBall(1);
         }
-        else if (serveChance == ServeAlternativeChance)
+        else
         {
             _ball.ServeBall(-1);
         }
@@ -60,21 +110,39 @@ public class ComputerMovement : IMovement
 
         if (ballPositionY > computerPositionY)
         {
-            _computer.RacketAction(moveChance < RacketMoveChance ? "Up" : "Down");
+            _computer.RacketAction(moveChance <= _difficulty.GetMoveChance() ? "Down" : "Up");
         }
         else if (ballPositionY < computerPositionY)
         {
-            _computer.RacketAction(moveChance < RacketMoveChance ? "Down" : "Up");
+            _computer.RacketAction(moveChance <= _difficulty.GetMoveChance() ? "Up" : "Down");
         }
     }
 
     private void TryActivateAbility()
     {
-        int abilityChance = _random.Next(1, AbilityRandomRange + 1);
+        abilityCooldownTracker++;
 
-        if (abilityChance == AbilityActivateChance && !_computer.AbilityIsActive)
+        int abilityChance = _random.Next(1, 101);
+        int adjustedThreshold = abilityActivationThreshold - abilityCooldownTracker;
+
+        if (adjustedThreshold <= 0) adjustedThreshold = 1;
+
+        if (abilityChance <= _difficulty.GetAbilityChance() && !_computer.AbilityIsActive)
         {
-            _computer.RacketAction("Ability");
+            if (abilityChance <= adjustedThreshold)
+            {
+                _computer.RacketAction("Ability");
+                abilityCooldownTracker = 0;
+            }
+        }
+    }
+    private void TryActivateUltimateAbility()
+    {
+        int abilityChance = _random.Next(1, 101);
+
+        if (abilityChance <= _difficulty.GetUltimateAbilityChance() && _computer.Ability.UltimateAbility.UltimateAbilityCooldown == 0)
+        {
+            _computer.RacketAction("SwitchAbility");
         }
     }
 }

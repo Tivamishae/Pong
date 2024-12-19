@@ -1,5 +1,3 @@
-
-
 class Arena(Game game, ArenaBorder arenaBorders, Menu menu)
 {
 
@@ -26,6 +24,14 @@ class Arena(Game game, ArenaBorder arenaBorders, Menu menu)
             UI.CreateUI();
 
             CreateArena();
+            if (Ball.XDirection < 0)
+            {
+                Player1Turn = true;
+            }
+            else
+            {
+                Player1Turn = false;
+            }
 
             PlayerTurn();
 
@@ -136,7 +142,7 @@ class Arena(Game game, ArenaBorder arenaBorders, Menu menu)
         {
             ball.YDirection = ball.YDirection * -1;
         }
-        
+
         if (ballCoordinate[0].Item1 <= 0)
         {
             WinPoint(Player2, Player1, 1);
@@ -168,14 +174,12 @@ class Arena(Game game, ArenaBorder arenaBorders, Menu menu)
             }
 
             racketCollisionCooldown.Use();
-
-            Player1Turn = !Player1Turn;
         }
     }
 
     private void PlayerTurn()
     {
-        if (Player1Turn)
+        if (Player1Turn || (Ball.Serve && Ball.Coordinates[0].Item1 < 40))
         {
             Game.ReturnMovement().Player1Movement.Movement();
         }

@@ -1,37 +1,54 @@
-public abstract class AbstractAbility
+using System.Runtime.CompilerServices;
+
+
+//Bridge pattern
+/* Vi har valt att skapa en interface AbstractAbility som injekterar ett objekt av typen UltimateAilitiebility. UltimateAbility är en interface som implementeras av andra konkreta klasser
+som är våra ultimate abilities. Vårt interface AbstractAbility implementeras av flera olika abilities. Vi har alltså en bro mellan AbstractAbility och UltimateAbility som
+möjliggör att vi kan mixa bland dessa två hursomhelst innan vi injekterar den i vår IPlayer.
+*/
+/* Vi har valt att göra detta eftersom vi lätt kan skapa nya abilities och ultimate abilities utan att behöva hårdkoda alla olika kombinationer.
+*/
+public interface AbstractAbility
 {
+    UltimateAbility UltimateAbility { get; set; }
+    string Name { get; set; }
 
-    public virtual string Name { get; set; } = "";
+    public void UseAbility();
 
-    public abstract void UseAbility();
-
+    public void UseUltimateAbility();
 }
-// Strategy pattern
-/* Vi nyttjar vår abstrakta klass AbstractAbility som vår abstrakta strategi, har därefter skapat våra konkreta strategier
-screw och smash som blir injekterade i kontexten AbilityInventory.
-*/
-/* Vi använder det eftersom vi vill kunna iterera över supertypen AbstractAbility i vår iterator. Vi kan därmed skapa en iterable som innehåller
-våra subtyper screw och smash fast de kompileras som AbstractAbility.
-*/
 
-public class Screw(Ball ball) : AbstractAbility
+public class Screw(Ball ball, UltimateAbility ultimateAbility) : AbstractAbility
 {
     public Ball Ball { get; set; } = ball;
-    public override string Name { get; set; } = "Screw";
-    public override void UseAbility()
+    public UltimateAbility UltimateAbility { get; set; } = ultimateAbility;
+    public string Name { get; set; } = "Screw";
+    public void UseAbility()
     {
         Ball.YDirection = Math.Sign(Ball.YDirection) * 2;
     }
+
+    public void UseUltimateAbility()
+    {
+        UltimateAbility.UseAbility();
+    }
 }
 
-public class Smash(Ball ball) : AbstractAbility
+
+public class Smash(Ball ball, UltimateAbility ultimateAbility) : AbstractAbility
 {
     public Ball Ball { get; set; } = ball;
+    public UltimateAbility UltimateAbility { get; set; } = ultimateAbility;
 
-    public override string Name { get; set; } = "Smash";
+    public string Name { get; set; } = "Smash";
 
-    public override void UseAbility()
+    public void UseAbility()
     {
         Ball.XDirection = Math.Sign(Ball.XDirection) * 2;
+    }
+
+    public void UseUltimateAbility()
+    {
+        UltimateAbility.UseAbility();
     }
 }

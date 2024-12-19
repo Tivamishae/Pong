@@ -15,7 +15,7 @@ public interface IPlayer : ICoordinates
 
     public IColor RacketColor { get; set; }
 
-    public IIterator<AbstractAbility> AbilityIterator { get; set; }
+    public AbstractAbility Ability { get; set; }
 
     public int Cooldown { get; set; }
 
@@ -29,7 +29,7 @@ public interface IComputerPlayer : IPlayer
     Ball BallInPlay { get; set; }
 }
 
-public class HumanPlayer(int xPos, int yPos, string name, AbilityInventory abilityInventory, IColor color) : IPlayer
+public class HumanPlayer(int xPos, int yPos, string name, AbstractAbility ability, IColor color) : IPlayer
 {
     public List<(int, int)> Coordinates { get; set; } =
     [
@@ -44,7 +44,7 @@ public class HumanPlayer(int xPos, int yPos, string name, AbilityInventory abili
 
     public IColor RacketColor { get; set; } = color;
 
-    public IIterator<AbstractAbility> AbilityIterator { get; set; } = abilityInventory.CreateIterator();
+    public AbstractAbility Ability { get; set; } = ability;
 
     public bool AbilityIsActive { get; set; } = false;
 
@@ -66,9 +66,9 @@ public class HumanPlayer(int xPos, int yPos, string name, AbilityInventory abili
         {
             AbilityIsActive = !AbilityIsActive;
         }
-        if (action == "SwitchAbility" && !AbilityIsActive)
+        if (action == "SwitchAbility")
         {
-            AbilityIterator.MoveNext(1);
+            Ability.UltimateAbility.UseAbility();
         }
     }
 
@@ -86,6 +86,7 @@ public class HumanPlayer(int xPos, int yPos, string name, AbilityInventory abili
             await Task.Delay(1000);
         }
     }
+
 
     public void CoordinateReset()
     {
@@ -110,13 +111,13 @@ public class HumanPlayer(int xPos, int yPos, string name, AbilityInventory abili
     }
     public void UseAbility()
     {
-        AbilityIterator.Current.UseAbility();
+        Ability.UseAbility();
         AbilityIsActive = false;
         Cooldown = 12;
     }
 }
 
-public class ComputerPlayer(int xPos, int yPos, string name, AbilityInventory abilityInventory, IColor color, Ball ball) : IComputerPlayer
+public class ComputerPlayer(int xPos, int yPos, string name, AbstractAbility ability, IColor color, Ball ball) : IComputerPlayer
 {
     public List<(int, int)> Coordinates { get; set; } =
     [
@@ -131,9 +132,9 @@ public class ComputerPlayer(int xPos, int yPos, string name, AbilityInventory ab
 
     public Ball BallInPlay { get; set; } = ball;
 
-    public IColor RacketColor { get; set; } = color;
+    public AbstractAbility Ability { get; set; } = ability;
 
-    public IIterator<AbstractAbility> AbilityIterator { get; set; } = abilityInventory.CreateIterator();
+    public IColor RacketColor { get; set; } = color;
 
     public bool AbilityIsActive { get; set; } = false;
 
@@ -155,9 +156,9 @@ public class ComputerPlayer(int xPos, int yPos, string name, AbilityInventory ab
         {
             AbilityIsActive = !AbilityIsActive;
         }
-        if (action == "SwitchAbility" && !AbilityIsActive)
+        if (action == "SwitchAbility")
         {
-            AbilityIterator.MoveNext(1);
+            Ability.UltimateAbility.UseAbility();
         }
     }
 
@@ -202,7 +203,7 @@ public class ComputerPlayer(int xPos, int yPos, string name, AbilityInventory ab
 
     public void UseAbility()
     {
-        AbilityIterator.Current.UseAbility();
+        Ability.UseAbility();
         AbilityIsActive = false;
         Cooldown = 12;
     }

@@ -25,7 +25,6 @@ public class Menu
     {
         Console.CursorVisible = false;
         Console.Clear();
-        //Startmenyn producerades med hjälp av ett LLM
         Console.WriteLine("**************************************************************");
         Console.WriteLine("*                                                            *");
         Console.WriteLine("*                      WELCOME TO PONG!                      *");
@@ -35,9 +34,15 @@ public class Menu
         Console.WriteLine("*                                                            *");
         Console.WriteLine("*                          Controls:                         *");
         Console.WriteLine("*       - Player 1: Move Up (W) / Down (S)                   *");
+<<<<<<< HEAD
         Console.WriteLine("*       - Player 1: Use ability (F) / Ultimate Ability (D)   *");
         Console.WriteLine("*       - Player 2: Move Up (↑) / Down (↓)                   *");
         Console.WriteLine("*       - Player 2: Use ability (L) / Ultimate Ability (<-)  *");
+=======
+        Console.WriteLine("*       - Player 1: Use ability (L) / Switch Ability (<-)    *");
+        Console.WriteLine("*       - Player 2: Move Up (↑) / Down (↓)                   *");
+        Console.WriteLine("*       - Player 2: Use ability (F) / Switch Ability (D)     *");
+>>>>>>> 02548914413de3ff91b7fba272d5d517d15a8003
         Console.WriteLine("*       - Only the recieving player can move his/her racket  *");
         Console.WriteLine("*                                                            *");
         Console.WriteLine("*      Score Points by Getting the Ball Past Your Opponent!  *");
